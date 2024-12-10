@@ -33,7 +33,6 @@ const MainHero = ({ swiperRef, trendingData }) => {
   }, [currentSlide]);
 
   const getPopularityPercentage = (popularity) => {
-    // فرض میکنیم که مقدار محبوبیت میتواند تا 1000 باشد
     const maxPopularity = 1000;
     return Math.min(Math.round((popularity / maxPopularity) * 100), 100);
     };
@@ -67,35 +66,35 @@ const MainHero = ({ swiperRef, trendingData }) => {
           <SwiperSlide key={index}>
             <div className="w-full h-full relative">
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
                 alt={item.title}
                 className="w-full h-full opacity-70"
               />
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r to-black/85 from-transparent">
+              <div className="absolute top-0 left-0 w-full h-full sm:bg-gradient-to-r bg-gradient-to-br to-transparent from-black/85">
                 <motion.div
                   key={animationKey}
                   initial={{ opacity: 0, scale: 0.8, x: 100 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ duration: 0.7, ease: "easeInOut" }}
-                  className="w-full h-full pl-5 flex justify-center items-start flex-col gap-5"
+                  className="w-full h-full pl-5 flex sm:justify-center justify-start sm:pt-0 pt-5 items-start flex-col gap-5"
                 >
-                  <h2 className="font-bold text-5xl">{item.title}</h2>
-                  <p className="text-lg text-blue-400">
+                  <h2 className="font-bold lg:text-5xl sm:text-4xl text-2xl">{item.title}</h2>
+                  <p className="sm:text-lg text-base text-blue-400">
                     {item.release_date.split("-")[0]}
                   </p>
-                  <p className="text-lg text-gray-300">
+                  <p className="sm:text-lg text-base text-gray-300">
                     {item.genre_ids.map((id) => genres[id]).join(" - ")}
                   </p>
-                  <p className="text-lg text-yellow-400 flex items-center gap-1">
+                  <p className="sm:text-lg text-base text-yellow-400 flex items-center gap-1">
                     <FaImdb /> {item.vote_average}
                   </p>
-                  <p className="text-lg text-cyan-400 flex items-center gap-1">
+                  <p className="sm:text-lg text-base text-cyan-400 flex items-center gap-1">
                     <FaRegFaceGrinHearts />{" "}
                     {getPopularityPercentage(item.popularity)}%
                   </p>
                   <a
                     href="/"
-                    className="outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white text-lg cursor-pointer transition duration-75 hover:scale-95"
+                    className="outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
                   >
                     view
                   </a>

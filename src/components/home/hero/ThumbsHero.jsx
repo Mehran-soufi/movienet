@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 
-const ThumbsHero = ({ swiperRef }) => {
+const ThumbsHero = ({ swiperRef,trendingData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <section className="absolute w-1/2 h-1/2 bottom-0 z-50 right-0">
+    <section className="absolute sm:w-1/2 w-2/3 lg:h-1/2 h-1/3 bottom-0 z-50 right-0">
       <Swiper
         ref={swiperRef}
         loop={true}
-        slidesPerView={1}
-        spaceBetween={10}
+        slidesPerView={1.1}
+        spaceBetween={5}
         autoplay={{
           delay: 4000,
           disableOnInteraction: false,
@@ -21,12 +21,12 @@ const ThumbsHero = ({ swiperRef }) => {
         speed={1000}
         breakpoints={{
           640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
+            slidesPerView: 1.4,
+            spaceBetween: 8,
           },
           768: {
-            slidesPerView: 4,
-            spaceBetween: 40,
+            slidesPerView: 1.4,
+            spaceBetween: 8,
           },
           1024: {
             slidesPerView: 3.2,
@@ -40,7 +40,7 @@ const ThumbsHero = ({ swiperRef }) => {
         allowSlideNext={true}
         allowSlidePrev={true}
       >
-        {[...Array(6)].map((_, index) => (
+        {trendingData.slice(0,5).map((item, index) => (
           <SwiperSlide key={index}>
             <motion.div
               initial={{ opacity: 0.5, height: "80%" }}
@@ -56,11 +56,9 @@ const ThumbsHero = ({ swiperRef }) => {
               }`}
             >
               <img
-                src={`https://picsum.photos/seed/picsum/${
-                  300 + index * 10
-                }/500`}
-                alt=""
-                className="w-full h-full rounded-md"
+               src={`https://image.tmdb.org/t/p/original${item. poster_path}`}
+                alt={item.title}
+                className="w-full h-full object-cover object-center rounded-md"
               />
             </motion.div>
           </SwiperSlide>
