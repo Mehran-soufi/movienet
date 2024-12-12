@@ -29,3 +29,15 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+/* home slide */
+.home-slide .swiper-slide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 90% !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}

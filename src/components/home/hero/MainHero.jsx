@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { FaImdb } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -92,12 +93,12 @@ const MainHero = ({ swiperRef, trendingData }) => {
                     <FaRegFaceGrinHearts />{" "}
                     {getPopularityPercentage(item.popularity)}%
                   </p>
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
                   >
                     view
-                  </a>
+                  </Link>
                 </motion.div>
               </div>
             </div>

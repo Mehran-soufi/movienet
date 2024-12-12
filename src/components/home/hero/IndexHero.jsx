@@ -4,26 +4,28 @@ import MainHero from "./MainHero";
 import ThumbsHero from "./ThumbsHero";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
-function Index() {
+function IndexHero() {
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const [trendingData, setTrendingData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [trendingLoading, setTrendingLoading] = useState(false);
+  const [trendingError, setErendingError] = useState(false);
 
   const getTrendingData = async () => {
-    setLoading(true);
-    setError(false);
+    setTrendingLoading(true);
+    setErendingError(false);
     try {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1`
       );
       setTrendingData(data.results);
+      setTrendingLoading(false);
+      setErendingError(false);
     } catch (err) {
-      setError(true);
+      setErendingError(true);
       console.error("Error fetching trending data:", err);
     } finally {
-      setLoading(false);
+      setTrendingLoading(false);
     }
   };
 
@@ -51,8 +53,8 @@ function Index() {
 
   return (
     <div className="w-full h-screen relative">
-      {loading && <p>Loading...</p>}
-      {error && <p>Error loading data.</p>}
+      {trendingLoading && <p>Loading...</p>}
+      {trendingError && <p>Error loading data.</p>}
       {trendingData && (
         <>
           <MainHero swiperRef={swiper1Ref} trendingData={trendingData} />
@@ -77,4 +79,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default IndexHero;

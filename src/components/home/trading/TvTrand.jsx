@@ -1,0 +1,65 @@
+import React from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+// import required modules
+import { Navigation } from "swiper/modules";
+
+function TvTrand({ trendingData, slideBtn, setDetailShow, setSelectedMovie }) {
+  return (
+    <div className="w-full h-[45vh] my-4">
+      <Swiper
+        ref={slideBtn}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        slidesPerView={1.1}
+        spaceBetween={5}
+        breakpoints={{
+          640: {
+            slidesPerView: 3.2,
+            spaceBetween: 7,
+          },
+          768: {
+            slidesPerView: 3.2,
+            spaceBetween: 7,
+          },
+          1024: {
+            slidesPerView: 7.2,
+            spaceBetween: 10,
+          },
+        }}
+        modules={[Navigation]}
+        className="mySwiper home-slide w-full h-full"
+      >
+        {trendingData.slice(0, 20).map((item) => (
+          <SwiperSlide key={item.id}>
+            <div
+              onClick={() => {
+                setSelectedMovie(item);
+                setDetailShow(true);
+              }}
+              className="w-full h-full flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                alt={item.name}
+                className="w-full h-4/5 rounded-t-md"
+              />
+              <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
+                {item.name}
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
+
+export default TvTrand;
