@@ -87,7 +87,7 @@ const MainHero = ({ swiperRef, trendingData }) => {
                     {item.genre_ids.map((id) => genres[id]).join(" - ")}
                   </p>
                   <p className="sm:text-lg text-base text-yellow-400 flex items-center gap-1">
-                    <FaImdb /> {item.vote_average}
+                    <FaImdb /> {item.vote_average.toFixed(1)}
                   </p>
                   <p className="sm:text-lg text-base text-cyan-400 flex items-center gap-1">
                     <FaRegFaceGrinHearts />{" "}

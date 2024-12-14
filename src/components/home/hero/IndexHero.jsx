@@ -4,34 +4,9 @@ import MainHero from "./MainHero";
 import ThumbsHero from "./ThumbsHero";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
-function IndexHero() {
-  const apiKey = import.meta.env.VITE_API_KEY;
+function IndexHero({trendingData}) {
 
-  const [trendingData, setTrendingData] = useState(null);
-  const [trendingLoading, setTrendingLoading] = useState(false);
-  const [trendingError, setErendingError] = useState(false);
-
-  const getTrendingData = async () => {
-    setTrendingLoading(true);
-    setErendingError(false);
-    try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1`
-      );
-      setTrendingData(data.results);
-      setTrendingLoading(false);
-      setErendingError(false);
-    } catch (err) {
-      setErendingError(true);
-      console.error("Error fetching trending data:", err);
-    } finally {
-      setTrendingLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getTrendingData();
-  }, []);
+ 
 
   // swiper custom setting
   const swiper1Ref = useRef(null);
@@ -53,10 +28,6 @@ function IndexHero() {
 
   return (
     <div className="w-full h-screen relative">
-      {trendingLoading && <p>Loading...</p>}
-      {trendingError && <p>Error loading data.</p>}
-      {trendingData && (
-        <>
           <MainHero swiperRef={swiper1Ref} trendingData={trendingData} />
           <ThumbsHero swiperRef={swiper2Ref} trendingData={trendingData} />
           <div className="absolute z-50 bottom-5 left-5 transform flex gap-2">
@@ -73,8 +44,6 @@ function IndexHero() {
               <GrFormNextLink />
             </button>
           </div>
-        </>
-      )}
     </div>
   );
 }

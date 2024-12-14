@@ -1,41 +1,42 @@
 import React, { useEffect, useRef, useState } from "react";
-import TitleTranding from "./TitleTranding";
-import MovieTrand from "./MovieTrand";
-import TvTrand from "./TvTrand";
+import TitleTranding from "./TitleLatest";
 import axios from "axios";
 import Detail from "./Detail";
 import Loading from "./Loading";
+import MovieLatest from "./MovieLatest";
+import TvLatest from "./TvLatest";
 
-function IndexTrand({ apiKey }) {
+function IndexLatest({ apiKey }) {
   const [active, setActive] = useState("movie");
+  const [playing, setPlayig] = useState("now_playing");
   const [detailShow, setDetailShow] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const slideBtn = useRef(null);
 
-  const [trendingData, setTrendingData] = useState(null);
-  const [trendingLoading, setTrendingLoading] = useState(false);
-  const [trendingError, setTrendingError] = useState(false);
+  const [latestData, setLatestData] = useState(null);
+  const [latestLoading, setLatestLoading] = useState(false);
+  const [latestError, setLatestError] = useState(false);
 
-  const getTrendingData = async () => {
-    setTrendingLoading(true);
-    setTrendingError(false);
+  const getLatestData = async () => {
+    setLatestLoading(true);
+    setLatestError(false);
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/${active}/day?api_key=${apiKey}&page=1`
+        `https://api.themoviedb.org/3/${active}/${playing}?api_key=${apiKey}&language=en&page=1`
       );
-      setTrendingData(data.results);
-      setTrendingLoading(false);
-      setTrendingError(false);
+      setLatestData(data.results);
+      setLatestLoading(false);
+      setLatestError(false);
     } catch (err) {
-      setTrendingError(true);
+      setLatestError(true);
       console.error("Error fetching trending data:", err);
     } finally {
-      setTrendingLoading(false);
+      setLatestLoading(false);
     }
   };
 
   useEffect(() => {
-    getTrendingData();
+    getLatestData();
   }, [active]);
 
   return (
@@ -43,22 +44,24 @@ function IndexTrand({ apiKey }) {
       <div className="md:w-4/5 w-11/12 mx-auto">
         <TitleTranding
           active={active}
+          playing={playing}
+          setPlayig={setPlayig}
           setActive={setActive}
-          trendingData={trendingData}
+          latestData={latestData}
           slideBtn={slideBtn}
         />
 
-        {trendingLoading || (trendingError && <Loading />)}
-        {trendingData && active === "movie" ? (
-          <MovieTrand
-            trendingData={trendingData}
+        {latestLoading || (latestError && <Loading />)}
+        {latestData && active === "movie" && playing === "now_playing" ? (
+          <MovieLatest
+            latestData={latestData}
             slideBtn={slideBtn}
             setDetailShow={setDetailShow}
             setSelectedMovie={setSelectedMovie}
           />
-        ) : trendingData && active === "tv" ? (
-          <TvTrand
-            trendingData={trendingData}
+        ) : latestData && active === "tv" && playing === "on_the_air" ? (
+          <TvLatest
+            latestData={latestData}
             slideBtn={slideBtn}
             setDetailShow={setDetailShow}
             setSelectedMovie={setSelectedMovie}
@@ -72,4 +75,4 @@ function IndexTrand({ apiKey }) {
   );
 }
 
-export default IndexTrand;
+export default IndexLatest;

@@ -1,12 +1,12 @@
-import Home from "./components/home/Home"
+import Home from "./components/home/Home";
+import Loading from "./components/loading/Loading";
 
 function App() {
-
   return (
     <>
-    <Home/>
+      <Home />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
