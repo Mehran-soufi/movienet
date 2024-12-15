@@ -4,6 +4,7 @@ import IndexHero from "./hero/IndexHero";
 import IndexTrand from "./trading/IndexTrand";
 import IndexLatest from "./latest/IndexLatest";
 import Loading from "../loading/Loading";
+import IndexPopular from "./popular/IndexPopular";
 
 function Home() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -53,6 +54,7 @@ function Home() {
               <IndexHero trendingData={trendingData} />
               <IndexTrand apiKey={apiKey} />
               <IndexLatest apiKey={apiKey} />
+              <IndexPopular apiKey={apiKey} />
             </section>
           )}
         </>
