@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import genres from "../../../genres";
 
-function Detail({ setDetailShow, movie, active }) {
+function Detail({ setDetailShow, movie,active }) {
+  console.log("Detail Movie Data:", movie); // بررسی دادههای دریافتی
+
   const animationVariants = {
     hidden: { y: "-100%", opacity: 0 },
     visible: {

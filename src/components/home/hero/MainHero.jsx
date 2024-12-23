@@ -36,7 +36,7 @@ const MainHero = ({ swiperRef, trendingData }) => {
   const getPopularityPercentage = (popularity) => {
     const maxPopularity = 1000;
     return Math.min(Math.round((popularity / maxPopularity) * 100), 100);
-    };
+  };
 
   return (
     <Swiper
@@ -79,7 +79,9 @@ const MainHero = ({ swiperRef, trendingData }) => {
                   transition={{ duration: 0.7, ease: "easeInOut" }}
                   className="w-full h-full pl-5 flex sm:justify-center justify-start sm:pt-0 pt-5 items-start flex-col gap-5"
                 >
-                  <h2 className="font-bold lg:text-5xl sm:text-4xl text-2xl">{item.title}</h2>
+                  <h2 className="font-bold lg:text-5xl sm:text-4xl text-2xl">
+                    {item.title}
+                  </h2>
                   <p className="sm:text-lg text-base text-blue-400">
                     {item.release_date.split("-")[0]}
                   </p>
@@ -91,11 +93,14 @@ const MainHero = ({ swiperRef, trendingData }) => {
                   </p>
                   <p className="sm:text-lg text-base text-cyan-400 flex items-center gap-1">
                     <FaRegFaceGrinHearts />{" "}
-                    {getPopularityPercentage(item.popularity)}%
+                    {item.popularity}
                   </p>
                   <Link
-                    to="/"
-                    className="outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
+                    to={`/movie/${item.id}/${
+                      item.title || item.name
+                    }`}
+                    target="_blank"
+                    className="w-28 my-2 outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
                   >
                     view
                   </Link>

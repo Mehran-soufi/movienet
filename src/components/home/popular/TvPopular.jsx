@@ -15,6 +15,13 @@ function TvTPopular({
   setDetailShow,
   setSelectedMovie,
 }) {
+    
+  function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+    return text;
+    }
+    return text.substring(0, maxLength) + '...';
+    }
   return (
     <div className="w-full h-[45vh] my-4">
       <Swiper
@@ -42,7 +49,7 @@ function TvTPopular({
         modules={[Navigation]}
         className="mySwiper home-slide w-full h-full"
       >
-        {popularData.slice(0, 20).map((item) => (
+        {popularData.map((item) => (
           <SwiperSlide key={item.id}>
             <div
               onClick={() => {
@@ -57,7 +64,7 @@ function TvTPopular({
                 className="w-full h-4/5 rounded-t-md"
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-                {item.name}
+              {truncateText(item.title, 20)}
               </p>
             </div>
           </SwiperSlide>

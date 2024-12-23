@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import genres from "../../../genres";
 
-function Detail({ setDetailShow, movie }) {
+function Detail({ setDetailShow, movie,active }) {
   const animationVariants = {
     hidden: { y: "-100%", opacity: 0 },
     visible: {
@@ -22,7 +22,7 @@ function Detail({ setDetailShow, movie }) {
   };
 
   return (
-    <AnimatePresence  mode="wait">
+    <AnimatePresence mode="wait">
       {movie && (
         <motion.div
           key={movie.id}
@@ -84,8 +84,12 @@ function Detail({ setDetailShow, movie }) {
                 <p className="sm:text-lg text-base text-yellow-400 flex items-center gap-1">
                   <FaImdb /> {movie.vote_average.toFixed(1)}
                 </p>
+
                 <Link
-                  to="/"
+                  to={`/${active}/${
+                    movie.id
+                  }/${movie.title || movie.name}`}
+                  target="_blank"
                   className="w-28 my-2 outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
                 >
                   view

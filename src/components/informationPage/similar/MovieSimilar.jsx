@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-
-// import required modules
 import { Navigation } from "swiper/modules";
 
-function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
+function MovieSimilar({
+  similarData,
+  slideBtn,
+  setDetailShow,
+  setSelectedMovie,
+}) {
   useEffect(() => {
-
-    // Ensure Swiper initializes navigation properly
     const nextButton = document.querySelector(".swiper-button-next");
     const prevButton = document.querySelector(".swiper-button-prev");
 
@@ -21,13 +19,15 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
       prevButton.classList.add("custom-prev");
     }
   }, []);
-    
+
+
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
     return text;
     }
     return text.substring(0, maxLength) + '...';
     }
+    
 
   return (
     <div className="w-full h-[45vh] my-4">
@@ -56,7 +56,7 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
         modules={[Navigation]}
         className="mySwiper home-slide w-full h-full"
       >
-        {latestData.map((item) => (
+        {similarData.map((item) => (
           <SwiperSlide key={item.id}>
             <div
               onClick={() => {
@@ -81,4 +81,4 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
   );
 }
 
-export default MovieLatest;
+export default MovieSimilar;

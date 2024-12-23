@@ -21,11 +21,12 @@ function IndexPopular({ apiKey }) {
     setpopularError(false);
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/popular/${active}/day?api_key=${apiKey}&page=1`
+        `https://api.themoviedb.org/3/${active}/popular?api_key=${apiKey}&page=1`
       );
       setPopularData(data.results);
       setpopularLoading(false);
       setpopularError(false);
+      
     } catch (err) {
       setpopularError(true);
       console.error("Error fetching trending data:", err);
@@ -66,7 +67,7 @@ function IndexPopular({ apiKey }) {
         ) : null}
       </div>
       {detailShow && selectedMovie && (
-        <Detail setDetailShow={setDetailShow} movie={selectedMovie} />
+        <Detail setDetailShow={setDetailShow} movie={selectedMovie} active={active} />
       )}
     </section>
   );

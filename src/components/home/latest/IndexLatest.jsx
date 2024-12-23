@@ -69,7 +69,7 @@ function IndexLatest({ apiKey }) {
         ) : null}
       </div>
       {detailShow && selectedMovie && (
-        <Detail setDetailShow={setDetailShow} movie={selectedMovie} />
+        <Detail setDetailShow={setDetailShow} movie={selectedMovie} active={active} />
       )}
     </section>
   );

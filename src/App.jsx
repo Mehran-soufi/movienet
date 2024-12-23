@@ -1,10 +1,14 @@
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
-import Loading from "./components/loading/Loading";
+import InformationIndex from "./components/informationPage/InformationIndex";
 
 function App() {
   return (
     <>
-      <Home />
+      <Routes>
+        <Route element={<Home />} path="/" />
+        <Route element={<InformationIndex />} path="/:type/:id/:title" />
+      </Routes>
     </>
   );
 }
