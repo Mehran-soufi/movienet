@@ -29,7 +29,7 @@ function IndexLatest({ apiKey }) {
       setLatestError(false);
     } catch (err) {
       setLatestError(true);
-      console.error("Error fetching trending data:", err);
+      setLatestLoading(false);
     } finally {
       setLatestLoading(false);
     }
@@ -69,7 +69,11 @@ function IndexLatest({ apiKey }) {
         ) : null}
       </div>
       {detailShow && selectedMovie && (
-        <Detail setDetailShow={setDetailShow} movie={selectedMovie} active={active} />
+        <Detail
+          setDetailShow={setDetailShow}
+          movie={selectedMovie}
+          active={active}
+        />
       )}
     </section>
   );

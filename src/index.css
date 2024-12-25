@@ -61,3 +61,11 @@ body {
   left: 0;
   background: linear-gradient(to right, #000, transparent);
 }
+
+/* credits */
+.credits span {
+  opacity: 0;
+}
+.credits span:hover {
+  opacity: 1;
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import MainHero from "./MainHero";
 import ThumbsHero from "./ThumbsHero";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";

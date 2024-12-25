@@ -26,10 +26,9 @@ function IndexPopular({ apiKey }) {
       setPopularData(data.results);
       setpopularLoading(false);
       setpopularError(false);
-      
     } catch (err) {
       setpopularError(true);
-      console.error("Error fetching trending data:", err);
+      setpopularLoading(false);
     } finally {
       setpopularLoading(false);
     }
@@ -67,7 +66,11 @@ function IndexPopular({ apiKey }) {
         ) : null}
       </div>
       {detailShow && selectedMovie && (
-        <Detail setDetailShow={setDetailShow} movie={selectedMovie} active={active} />
+        <Detail
+          setDetailShow={setDetailShow}
+          movie={selectedMovie}
+          active={active}
+        />
       )}
     </section>
   );

@@ -28,7 +28,7 @@ function IndexTrand({ apiKey }) {
       setTrendingError(false);
     } catch (err) {
       setTrendingError(true);
-      console.error("Error fetching trending data:", err);
+      setTrendingLoading(false);
     } finally {
       setTrendingLoading(false);
     }

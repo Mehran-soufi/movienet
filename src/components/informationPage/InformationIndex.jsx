@@ -4,6 +4,9 @@ import Hero from "./Hero";
 import Additional from "./Additional";
 import Similar from "./similar/Similar";
 import axios from "axios";
+import Credits from "./credits/Credits";
+import Loading from "./loading/Loading";
+import Download from "./download/Download";
 
 function InformationIndex() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -22,9 +25,11 @@ function InformationIndex() {
       );
       setInformationData(data);
       setMovieId(data.id);
+      setInformationLoading(false);
+      setInformationError(false);
     } catch (err) {
       setInformationError(true);
-      console.error("Error fetching information data:", err);
+      setInformationLoading(false);
     } finally {
       setInformationLoading(false);
     }
@@ -36,13 +41,19 @@ function InformationIndex() {
 
   return (
     <>
-      <Hero informationData={informationData} />
-      <Additional
-        informationData={informationData}
-        apiKey={apiKey}
-        type={type}
-      />
-      <Similar movieId={movieId} apiKey={apiKey} />
+      {informationData ? (
+        <>
+          <Hero informationData={informationData} />
+          <Additional
+            informationData={informationData}
+            apiKey={apiKey}
+            type={type}
+          />
+          <Download/>
+          <Similar movieId={movieId} apiKey={apiKey} />
+          <Credits apiKey={apiKey} movieId={movieId} type={type} />
+        </>
+      ) : <Loading informationLoading={informationLoading} informationError={informationError} />}
     </>
   );
 }

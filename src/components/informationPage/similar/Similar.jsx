@@ -24,9 +24,11 @@ function Similar({ apiKey, movieId }) {
         `https://api.themoviedb.org/3/${active}/${movieId}/similar?api_key=${apiKey}`
       );
       setSimilarData(data.results);
+      setSimilarLoading(false);
+      setSimilarError(false);
     } catch (err) {
       setSimilarError(true);
-      console.error("Error fetching similar data:", err);
+      setSimilarError(false);
     } finally {
       setSimilarLoading(false);
     }
@@ -55,9 +57,8 @@ function Similar({ apiKey, movieId }) {
             <MovieSimilar
               similarData={similarData}
               slideBtn={slideBtn}
-              setDetailShow={setDetailShow} 
+              setDetailShow={setDetailShow}
               setSelectedMovie={setSelectedMovie}
-
             />
           ) : (
             <TvTSimilar

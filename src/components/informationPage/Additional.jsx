@@ -22,8 +22,9 @@ function Additional({ informationData, apiKey, type }) {
           if (trailers.length > 0) {
             setVideoUrl(`https://www.youtube.com/embed/${trailers[0].key}`);
           }
+          setLoading(false)
+          setError(false);
         } catch (error) {
-          console.error("Error fetching video URL:", error);
           setError(true);
         } finally {
           setLoading(false);
@@ -33,16 +34,12 @@ function Additional({ informationData, apiKey, type }) {
     }
   }, [informationData, apiKey, type]);
 
-  if (!informationData) {
-    return <div>Loading...</div>;
-  }
-
   const { overview, production_companies, tagline } = informationData;
 
   return (
-    <div className="w-full h-[70vh]">
-      <div className="w-4/5 mx-auto h-full flex justify-center items-center py-4">
-        <div className="w-1/2 h-full">
+    <div className="w-full sm:h-[70vh] h-screen ">
+      <div className="sm:w-4/5 w-full mx-auto h-full flex sm:flex-row flex-col justify-center items-center py-4 sm:px-0 px-4">
+        <div className="w-full sm:w-1/2 sm:h-full h-1/3 flex justify-center items-center">
           {loading ? (
             <Skeleton height="100%" width="91%" containerClassName="w-11/12 h-full"
             baseColor="#334155"
@@ -64,16 +61,16 @@ function Additional({ informationData, apiKey, type }) {
             </div>
           )}
         </div>
-        <div className="w-1/2 h-full flex flex-col justify-start items-start gap-2">
-          <h2 className="text-slate-400 text-2xl">Overview:</h2>
+        <div className="w-full sm:w-1/2 sm:h-full h-2/3 flex flex-col sm:justify-start justify-center items-center sm:items-start gap-2">
+          <h2 className="text-slate-400 sm:text-2xl text-xl w-full flex justify-start">Overview:</h2>
           <p className="text-slate-200 text-justify">{overview}</p>
-          <h2 className="text-slate-400 text-2xl">Production Companies:</h2>
-          <ul className="flex items-center gap-2">
+          <h2 className="text-slate-400 sm:text-2xl text-xl w-full flex justify-start">Production Companies:</h2>
+          <ul className="w-full flex flex-col  gap-2">
             {production_companies.map((company) => (
               <li key={company.id}>{company.name}</li>
             ))}
           </ul>
-          <h2 className="text-slate-400 text-2xl">Tagline:</h2>
+          <h2 className="text-slate-400 sm:text-2xl text-xl w-full flex justify-start">Tagline:</h2>
           <p className="text-slate-200">{tagline}</p>
         </div>
       </div>
