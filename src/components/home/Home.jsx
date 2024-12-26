@@ -4,7 +4,7 @@ import IndexHero from "./hero/IndexHero";
 import IndexTrand from "./trading/IndexTrand";
 import IndexLatest from "./latest/IndexLatest";
 import IndexPopular from "./popular/IndexPopular";
-import IndexTopRated from "./topRated/IndextopRated";
+import IndexTopRated from "./topRated/IndexTopRated";
 import Loading from "../loading/Loading";
 
 function Home() {
