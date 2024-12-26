@@ -21,8 +21,8 @@ function TitleLatest({
     setActive("movie");
   };
   const handleTv = () => {
-    setPlayig("now_playing");
-    setActive("on_the_air");
+    setPlayig("on_the_air");
+    setActive("tv");
   };
 
   return (

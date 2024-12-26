@@ -12,7 +12,7 @@ function IndexTrand({ apiKey }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const slideBtn = useRef(null);
 
-  const [trendingData, setTrendingData] = useState(null);
+  const [trendingData, setTrendingData] = useState([]);
   const [trendingLoading, setTrendingLoading] = useState(false);
   const [trendingError, setTrendingError] = useState(false);
 

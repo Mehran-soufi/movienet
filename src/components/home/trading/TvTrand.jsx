@@ -11,6 +11,7 @@ import { Navigation } from "swiper/modules";
 
 function TvTrand({ trendingData, slideBtn, setDetailShow, setSelectedMovie }) {
   function truncateText(text, maxLength) {
+    if (!text) return "";
     if (text.length <= maxLength) {
       return text;
     }
@@ -43,6 +44,7 @@ function TvTrand({ trendingData, slideBtn, setDetailShow, setSelectedMovie }) {
         modules={[Navigation]}
         className="mySwiper home-slide w-full h-full"
       >
+        
         {trendingData.map((item) => (
           <SwiperSlide key={item.id}>
             <div

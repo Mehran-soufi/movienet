@@ -23,6 +23,7 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
   }, []);
     
   function truncateText(text, maxLength) {
+    if (!text) return "";
     if (text.length <= maxLength) {
     return text;
     }
