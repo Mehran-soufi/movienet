@@ -1,64 +1,64 @@
 import React, { useEffect, useRef, useState } from "react";
-import TitleTranding from "./TitleTranding";
-import MovieTrand from "./MovieTrand";
-import TvTrand from "./TvTrand";
 import axios from "axios";
 import Detail from "./Detail";
 import Loading from "./Loading";
+import TitleTopRated from "./TitletopRated";
+import MovieTopRated from "./MovietopRated";
+import TvTopRated from "./TvTopRated";
 
-function IndexTrand({ apiKey }) {
+function IndexTopRated({ apiKey }) {
   const [active, setActive] = useState("movie");
   const [detailShow, setDetailShow] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const slideBtn = useRef(null);
 
-  const [trendingData, setTrendingData] = useState(null);
-  const [trendingLoading, setTrendingLoading] = useState(false);
-  const [trendingError, setTrendingError] = useState(false);
+  const [topRatedData, setTopRatedData] = useState(null);
+  const [topRatedLoading, setTopRatedLoading] = useState(false);
+  const [topRatedError, setTopRatedError] = useState(false);
 
-  const getTrendingData = async () => {
-    setTrendingLoading(true);
-    setTrendingError(false);
+  const getTopRatedData = async () => {
+    setTopRatedLoading(true);
+    setTopRatedError(false);
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/${active}/day?api_key=${apiKey}&page=1`
+        `https://api.themoviedb.org/3/${active}/top_rated?api_key=${apiKey}&page=1`
       );
-      setTrendingData(data.results);
-      setTrendingLoading(false);
-      setTrendingError(false);
+      setTopRatedData(data.results);
+      setTopRatedLoading(false);
+      setTopRatedError(false);
     } catch (err) {
-      setTrendingError(true);
-      setTrendingLoading(false);
+      setTopRatedError(true);
+      setTopRatedLoading(false);
     } finally {
-      setTrendingLoading(false);
+      setTopRatedLoading(false);
     }
   };
 
   useEffect(() => {
-    getTrendingData();
+    getTopRatedData();
   }, [active]);
 
   return (
     <section className="w-full h-auto py-5 flex justify-center items-center flex-col relative">
       <div className="md:w-4/5 w-11/12 mx-auto">
-        <TitleTranding
+        <TitleTopRated
           active={active}
           setActive={setActive}
-          trendingData={trendingData}
+          topRatedData={topRatedData}
           slideBtn={slideBtn}
         />
 
-        {trendingLoading || (trendingError && <Loading />)}
-        {trendingData && active === "movie" ? (
-          <MovieTrand
-            trendingData={trendingData}
+        {topRatedLoading || (topRatedError && <Loading />)}
+        {topRatedData && active === "movie" ? (
+          <MovieTopRated
+            topRatedData={topRatedData}
             slideBtn={slideBtn}
             setDetailShow={setDetailShow}
             setSelectedMovie={setSelectedMovie}
           />
-        ) : trendingData && active === "tv" ? (
-          <TvTrand
-            trendingData={trendingData}
+        ) : topRatedData && active === "tv" ? (
+          <TvTopRated
+            topRatedData={topRatedData}
             slideBtn={slideBtn}
             setDetailShow={setDetailShow}
             setSelectedMovie={setSelectedMovie}
@@ -76,4 +76,4 @@ function IndexTrand({ apiKey }) {
   );
 }
 
-export default IndexTrand;
+export default IndexTopRated;

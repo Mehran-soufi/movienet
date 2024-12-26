@@ -3,8 +3,9 @@ import axios from "axios";
 import IndexHero from "./hero/IndexHero";
 import IndexTrand from "./trading/IndexTrand";
 import IndexLatest from "./latest/IndexLatest";
-import Loading from "../loading/Loading";
 import IndexPopular from "./popular/IndexPopular";
+import IndexTopRated from "./topRated/IndextopRated";
+import Loading from "../loading/Loading";
 
 function Home() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -55,6 +56,7 @@ function Home() {
               <IndexTrand apiKey={apiKey} />
               <IndexLatest apiKey={apiKey} />
               <IndexPopular apiKey={apiKey} />
+              <IndexTopRated apiKey={apiKey} />
             </section>
           )}
         </>

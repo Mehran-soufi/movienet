@@ -64,7 +64,7 @@ function TvTPopular({
                 className="w-full h-4/5 rounded-t-md"
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-              {truncateText(item.title, 20)}
+              {truncateText(item.name, 20)}
               </p>
             </div>
           </SwiperSlide>

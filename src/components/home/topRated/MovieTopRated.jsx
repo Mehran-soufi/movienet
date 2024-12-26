@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,9 +9,19 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 
-function TvLatest
-({ latestData, slideBtn, setDetailShow, setSelectedMovie }) {
-    
+function MovieTopRated({ topRatedData, slideBtn, setDetailShow,setSelectedMovie }) {
+  useEffect(() => {
+
+    // Ensure Swiper initializes navigation properly
+    const nextButton = document.querySelector(".swiper-button-next");
+    const prevButton = document.querySelector(".swiper-button-prev");
+
+    if (nextButton && prevButton) {
+      nextButton.classList.add("custom-next");
+      prevButton.classList.add("custom-prev");
+    }
+  }, []);
+
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
     return text;
@@ -22,12 +32,12 @@ function TvLatest
     <div className="w-full h-[45vh] my-4">
       <Swiper
         ref={slideBtn}
+        slidesPerView={1}
+        spaceBetween={5}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        slidesPerView={1.1}
-        spaceBetween={5}
         breakpoints={{
           640: {
             slidesPerView: 3.2,
@@ -45,22 +55,22 @@ function TvLatest
         modules={[Navigation]}
         className="mySwiper home-slide w-full h-full"
       >
-        {latestData.map((item) => (
+        {topRatedData.map((item) => (
           <SwiperSlide key={item.id}>
             <div
               onClick={() => {
                 setSelectedMovie(item);
                 setDetailShow(true);
               }}
-              className="w-full h-full flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
+              className="w-full h-full flex justify-end items-end flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
             >
               <img
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.name}
+                alt={item.title}
                 className="w-full h-4/5 rounded-t-md"
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-              {truncateText(item.name, 20)}
+              {truncateText(item.title, 20)}
               </p>
             </div>
           </SwiperSlide>
@@ -70,5 +80,4 @@ function TvLatest
   );
 }
 
-export default TvLatest
-;
+export default MovieTopRated;

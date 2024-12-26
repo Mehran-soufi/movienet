@@ -4,7 +4,6 @@ import axios from "axios";
 import Detail from "./Detail";
 import Loading from "./Loading";
 import MovieSimilar from "./MovieSimilar";
-import TvTSimilar from "./TvTSimilar";
 
 function Similar({ apiKey, movieId }) {
   const [active, setActive] = useState("movie");
@@ -43,33 +42,17 @@ function Similar({ apiKey, movieId }) {
   return (
     <section className="w-full h-auto py-5 flex justify-center items-center flex-col relative">
       <div className="md:w-4/5 w-11/12 mx-auto">
-        <TitleSimilar
-          active={active}
-          setActive={setActive}
-          similarData={similarData}
-          slideBtn={slideBtn}
-        />
+        <TitleSimilar similarData={similarData} slideBtn={slideBtn} />
 
-        {similarLoading || similarError ? (
-          <Loading />
-        ) : similarData && similarData.length > 0 ? (
-          active === "movie" ? (
-            <MovieSimilar
-              similarData={similarData}
-              slideBtn={slideBtn}
-              setDetailShow={setDetailShow}
-              setSelectedMovie={setSelectedMovie}
-            />
-          ) : (
-            <TvTSimilar
-              similarData={similarData}
-              slideBtn={slideBtn}
-              setDetailShow={setDetailShow}
-              setSelectedMovie={setSelectedMovie}
-            />
-          )
-        ) : (
-          <div className="text-gray-500">No similar content available</div>
+        {similarLoading || (similarError && <Loading />)}
+
+        {similarData && (
+          <MovieSimilar
+            similarData={similarData}
+            slideBtn={slideBtn}
+            setDetailShow={setDetailShow}
+            setSelectedMovie={setSelectedMovie}
+          />
         )}
       </div>
       {detailShow && selectedMovie && (

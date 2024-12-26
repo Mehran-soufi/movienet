@@ -9,9 +9,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 
-function TvLatest
-({ latestData, slideBtn, setDetailShow, setSelectedMovie }) {
-    
+function TvTopRated({ topRatedData, slideBtn, setDetailShow, setSelectedMovie }) {
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
     return text;
@@ -45,7 +43,7 @@ function TvLatest
         modules={[Navigation]}
         className="mySwiper home-slide w-full h-full"
       >
-        {latestData.map((item) => (
+        {topRatedData.map((item) => (
           <SwiperSlide key={item.id}>
             <div
               onClick={() => {
@@ -60,7 +58,7 @@ function TvLatest
                 className="w-full h-4/5 rounded-t-md"
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-              {truncateText(item.name, 20)}
+                {truncateText(item.name, 20)}
               </p>
             </div>
           </SwiperSlide>
@@ -70,5 +68,4 @@ function TvLatest
   );
 }
 
-export default TvLatest
-;
+export default TvTopRated;
