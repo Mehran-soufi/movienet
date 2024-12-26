@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Detail from "./Detail";
 import Loading from "./Loading";
-import TitleTopRated from "./TitletopRated";
-import MovieTopRated from "./MovietopRated";
+import TitleTopRated from "./TitleTopRated";
+import MovieTopRated from "./MovieTopRated";
 import TvTopRated from "./TvTopRated";
 
 function IndexTopRated({ apiKey }) {
