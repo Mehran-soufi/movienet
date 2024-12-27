@@ -5,8 +5,6 @@ import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
 function IndexHero({trendingData}) {
 
- 
-
   // swiper custom setting
   const swiper1Ref = useRef(null);
   const swiper2Ref = useRef(null);

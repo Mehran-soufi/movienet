@@ -16,6 +16,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 body {
   font-family: "Iranian-Sans";
@@ -68,4 +69,36 @@ body {
 }
 .credits span:hover {
   opacity: 1;
+}
+
+/* genre */
+.genre:hover image {
+  opacity: 0.3;
+}
+.genre:hover p {
+  background: #00000084;
+  color: #22d3ee;
+}
+
+/* mobile app */
+@media (min-width: 426px) {
+  .mobile-app::after,
+  .mobile-app::before {
+    position: absolute;
+    z-index: 20;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #191935;
+    transform: translateX(-50%);
+  }
+  .mobile-app::after {
+    top: -7px;
+    left: 50%;
+  }
+  .mobile-app::before {
+    bottom: -7px;
+    left: 50%;
+  }
 }

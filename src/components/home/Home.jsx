@@ -6,14 +6,17 @@ import IndexLatest from "./latest/IndexLatest";
 import IndexPopular from "./popular/IndexPopular";
 import IndexTopRated from "./topRated/IndexTopRated";
 import Loading from "../loading/Loading";
+import IndexUpcoming from "./upcoming/IndexUpcoming";
+import IndexActor from "./actor/IndexActor";
+import Genres from "./genres/Genres";
 
-function Home() {
-  const apiKey = import.meta.env.VITE_API_KEY;
-
+function Home({ setIsLoading }) {
   const [trendingData, setTrendingData] = useState(null);
   const [trendingLoading, setTrendingLoading] = useState(false);
   const [trendingError, setTrendingError] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const getTrendingData = async () => {
     setTrendingLoading(true);
@@ -27,7 +30,6 @@ function Home() {
       setTrendingError(false);
     } catch (err) {
       setTrendingError(true);
-      console.error("Error fetching trending data:", err);
     } finally {
       setTrendingLoading(false);
     }
@@ -37,9 +39,10 @@ function Home() {
     getTrendingData();
     const timer = setTimeout(() => {
       setShowLoading(false);
+      setIsLoading(false);
     }, 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [setIsLoading]);
 
   return (
     <>
@@ -53,10 +56,13 @@ function Home() {
           {trendingData && (
             <section className="w-full flex flex-col justify-center items-center">
               <IndexHero trendingData={trendingData} />
+              <Genres />
               <IndexTrand apiKey={apiKey} />
+              <IndexActor apiKey={apiKey} />
               <IndexLatest apiKey={apiKey} />
               <IndexPopular apiKey={apiKey} />
               <IndexTopRated apiKey={apiKey} />
+              {/* <IndexUpcoming apiKey={apiKey} /> */}
             </section>
           )}
         </>

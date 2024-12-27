@@ -8,14 +8,14 @@ import Credits from "./credits/Credits";
 import Loading from "./loading/Loading";
 import Download from "./download/Download";
 
-function InformationIndex() {
-  const apiKey = import.meta.env.VITE_API_KEY;
-  const { type, id, title } = useParams();
-
+function InformationIndex({ setIsLoading }) {
   const [informationData, setInformationData] = useState(null);
   const [informationLoading, setInformationLoading] = useState(false);
   const [informationError, setInformationError] = useState(false);
   const [movieId, setMovieId] = useState(null);
+
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const { type, id, title } = useParams();
 
   const getInformationData = async () => {
     setInformationLoading(true);
@@ -36,24 +36,38 @@ function InformationIndex() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getInformationData();
-  }, [type, id]);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [type, id, setIsLoading]);
 
   return (
     <>
-      {informationData ? (
+      {informationLoading || informationError ? (
+        <Loading
+          informationLoading={informationLoading}
+          informationError={informationError}
+        />
+      ) : (
         <>
-          <Hero informationData={informationData} />
-          <Additional
-            informationData={informationData}
-            apiKey={apiKey}
-            type={type}
-          />
-          <Download/>
-          <Similar movieId={movieId} apiKey={apiKey} />
-          <Credits apiKey={apiKey} movieId={movieId} type={type} />
+          {informationData && (
+            <>
+              <Hero informationData={informationData} />
+              <Additional
+                informationData={informationData}
+                apiKey={apiKey}
+                type={type}
+              />
+              <Download />
+              <Similar movieId={movieId} apiKey={apiKey} />
+              <Credits apiKey={apiKey} movieId={movieId} type={type} />
+            </>
+          )}
         </>
-      ) : <Loading informationLoading={informationLoading} informationError={informationError} />}
+      )}
     </>
   );
 }
