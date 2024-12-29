@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,6 +9,8 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
+
+import defaultImg from '../../../assets/default/default.jpg'
 
 function ManActor({ actorData, slideBtn }) {
   useEffect(() => {
@@ -22,6 +24,11 @@ function ManActor({ actorData, slideBtn }) {
     }
   }, []);
 
+    const [loadedImages, setLoadedImages] = useState({});
+  
+    const handleImageLoad = (id) => {
+      setLoadedImages((prev) => ({ ...prev, [id]: true }));
+    };
 
   return (
     <div className="w-full my-4">
@@ -58,9 +65,14 @@ function ManActor({ actorData, slideBtn }) {
             >
               <div className="w-40 h-40 rounded-full relative">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${item.profile_path}`}
+                  src={
+                    loadedImages[item.id]
+                      ? `https://image.tmdb.org/t/p/original${item.profile_path}`
+                      : defaultImg
+                  }
                   alt={item.name}
                   className="w-full h-full rounded-full"
+                  onLoad={() => handleImageLoad(item.id)}
                 />
               </div>
               <div className="py-1">

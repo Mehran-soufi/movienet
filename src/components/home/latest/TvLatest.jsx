@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import defaultImg from "../../../assets/default/default.jpg";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,16 +10,21 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 
-function TvLatest
-({ latestData, slideBtn, setDetailShow, setSelectedMovie }) {
-    
+function TvLatest({ latestData, slideBtn, setDetailShow, setSelectedMovie }) {
+  const [loadedImages, setLoadedImages] = useState({});
+
   function truncateText(text, maxLength) {
     if (!text) return "";
     if (text.length <= maxLength) {
-    return text;
+      return text;
     }
-    return text.substring(0, maxLength) + '...';
-    }
+    return text.substring(0, maxLength) + "...";
+  }
+
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
+  };
+
   return (
     <div className="w-full h-[45vh] my-4">
       <Swiper
@@ -56,12 +62,17 @@ function TvLatest
               className="w-full h-full flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
             >
               <img
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.name}
+                src={
+                  loadedImages[item.id]
+                    ? `https://image.tmdb.org/t/p/original${item.poster_path}`
+                    : defaultImg
+                }
+                alt={item.title}
                 className="w-full h-4/5 rounded-t-md"
+                onLoad={() => handleImageLoad(item.id)}
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-              {truncateText(item.name, 20)}
+                {truncateText(item.name, 20)}
               </p>
             </div>
           </SwiperSlide>
@@ -71,5 +82,4 @@ function TvLatest
   );
 }
 
-export default TvLatest
-;
+export default TvLatest;

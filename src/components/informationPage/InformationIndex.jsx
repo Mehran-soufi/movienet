@@ -13,6 +13,8 @@ function InformationIndex({ setIsLoading }) {
   const [informationLoading, setInformationLoading] = useState(false);
   const [informationError, setInformationError] = useState(false);
   const [movieId, setMovieId] = useState(null);
+    const [imageUrl, setImageUrl] = useState("");
+  
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const { type, id, title } = useParams();

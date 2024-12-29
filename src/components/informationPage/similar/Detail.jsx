@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaImdb } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import genres from "../../../genres";
+import defaultImg from "../../../assets/default/default.jpg";
 
-function Detail({ setDetailShow, movie,active }) {
-  console.log("Detail Movie Data:", movie); // بررسی دادههای دریافتی
+function Detail({ setDetailShow, movie, active }) {
+  const [loaded, setLoaded] = useState(false);
+  const [bgImageUrl, setBgImageUrl] = useState(defaultImg);
 
   const animationVariants = {
     hidden: { y: "-100%", opacity: 0 },
@@ -23,6 +25,24 @@ function Detail({ setDetailShow, movie,active }) {
     },
   };
 
+  useEffect(() => {
+    const updateBgImageUrl = () => {
+      const width = window.innerWidth;
+      const size = width < 640 ? "w500" : "original";
+      const newBgImageUrl = movie?.backdrop_path
+        ? `https://image.tmdb.org/t/p/${size}${movie.backdrop_path}`
+        : defaultImg;
+      setBgImageUrl(newBgImageUrl);
+    };
+
+    updateBgImageUrl();
+    window.addEventListener("resize", updateBgImageUrl);
+
+    return () => {
+      window.removeEventListener("resize", updateBgImageUrl);
+    };
+  }, [movie]);
+
   return (
     <AnimatePresence mode="wait">
       {movie && (
@@ -36,12 +56,19 @@ function Detail({ setDetailShow, movie,active }) {
         >
           <div className="w-full h-full">
             <img
-              src={`https://image.tmdb.org/t/p/original${
-                movie?.backdrop_path || ""
-              }`}
+              src={bgImageUrl}
               alt={movie?.title || movie?.name || "Movie Poster"}
               className="w-full h-full object-fill"
+              onLoad={() => setLoaded(true)}
+              style={{ display: loaded ? "block" : "none" }}
             />
+            {!loaded && (
+              <img
+                src={defaultImg}
+                alt="Loading"
+                className="w-full h-full object-fill"
+              />
+            )}
             <button
               onClick={() => setDetailShow(false)}
               className="absolute sm:top-[5%] top-2 right-2 sm:right-[1%] z-50 sm:text-3xl text-2xl text-rose-500 transition duration-200 ease-in-out hover:scale-90"
@@ -53,12 +80,19 @@ function Detail({ setDetailShow, movie,active }) {
             <div className="sm:w-1/4 sm:h-full w-full h-2/5 flex justify-center items-center">
               <div className="w-11/12 h-[95%]">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${
-                    movie?.poster_path || ""
-                  }`}
+                  src={bgImageUrl}
                   alt={movie?.title || movie?.name || "Movie Poster"}
                   className="w-full h-full rounded-md object-cover object-center mx-auto"
+                  onLoad={() => setLoaded(true)}
+                  style={{ display: loaded ? "block" : "none" }}
                 />
+                {!loaded && (
+                  <img
+                    src={defaultImg}
+                    alt="Loading"
+                    className="w-full h-full rounded-md object-cover object-center mx-auto"
+                  />
+                )}
               </div>
             </div>
             <div className="sm:w-3/4 sm:h-full w-full h-3/5 flex justify-center items-center px-[5%]">

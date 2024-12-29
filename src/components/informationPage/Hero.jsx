@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaImdb, FaRegGrinHearts } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { IoDocumentOutline } from "react-icons/io5";
 
+import defaultImg from "../../assets/default/default.jpg";
+
 function Hero({ informationData }) {
+  const [backdropLoaded, setBackdropLoaded] = useState(false);
+  const [posterLoaded, setPosterLoaded] = useState(false);
+  const [backdropUrl, setBackdropUrl] = useState(defaultImg);
+  const [posterUrl, setPosterUrl] = useState(defaultImg);
+
+  useEffect(() => {
+    const updateImageUrls = () => {
+      const width = window.innerWidth;
+      const size = width < 640 ? "w500" : "original";
+      if (informationData) {
+        setBackdropUrl(
+          `https://image.tmdb.org/t/p/${size}${informationData.backdrop_path}`
+        );
+        setPosterUrl(
+          `https://image.tmdb.org/t/p/${size}${informationData.poster_path}`
+        );
+      }
+    };
+
+    updateImageUrls();
+    window.addEventListener("resize", updateImageUrls);
+
+    return () => {
+      window.removeEventListener("resize", updateImageUrls);
+    };
+  }, [informationData]);
+
   if (!informationData) {
     return <div>Loading...</div>;
   }
 
   const {
-    backdrop_path,
-    poster_path,
     title,
     name,
     release_date,
@@ -31,9 +58,10 @@ function Hero({ informationData }) {
     <div className="w-fill sm:h-[80vh] h-screen relative">
       <div className="w-full sm:h-4/5 h-full hero-information">
         <img
-          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+          src={backdropLoaded ? backdropUrl : defaultImg}
           alt={title || name}
           className="w-full h-full object-cover object-top"
+          onLoad={() => setBackdropLoaded(true)}
         />
       </div>
       <div className="w-full sm:h-[80vh] h-full absolute top-0 left-0 flex sm:flex-row flex-col justify-center items-center">
@@ -66,16 +94,19 @@ function Hero({ informationData }) {
           </div>
           <div className="w-full h-3/4">
             <img
-              src={`https://image.tmdb.org/t/p/original${poster_path}`}
+              src={posterLoaded ? posterUrl : defaultImg}
               alt={title || name}
               className="mx-auto w-4/5 h-full rounded-xl object-cover"
+              onLoad={() => setPosterLoaded(true)}
             />
           </div>
         </div>
         <div className="sm:w-2/3 w-full sm:h-full h-2/3">
           <div className="w-full sm:h-4/5 h-full flex sm:flex-row flex-col lg:py-8 sm:py-6 py-4">
             <div className="sm:w-4/5 w-full sm:h-full h-3/4 flex flex-col sm:justify-start justify-center items-start gap-4">
-              <h1 className="text-5xl font-bold text-white sm:w-auto w-full flex justify-center items-center">{title || name}</h1>
+              <h1 className="text-5xl font-bold text-white sm:w-auto w-full flex justify-center items-center">
+                {title || name}
+              </h1>
               <p className="flex justify-center items-center gap-2 text-purple-300 sm:pl-0 pl-4">
                 year of production :
                 <span className="text-slate-300">{year}</span>

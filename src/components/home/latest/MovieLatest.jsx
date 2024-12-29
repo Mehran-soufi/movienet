@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import defaultImg from "../../../assets/default/default.jpg";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,9 +11,15 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 
-function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
-  useEffect(() => {
+function MovieLatest({
+  latestData,
+  slideBtn,
+  setDetailShow,
+  setSelectedMovie,
+}) {
+  const [loadedImages, setLoadedImages] = useState({});
 
+  useEffect(() => {
     // Ensure Swiper initializes navigation properly
     const nextButton = document.querySelector(".swiper-button-next");
     const prevButton = document.querySelector(".swiper-button-prev");
@@ -21,14 +29,17 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
       prevButton.classList.add("custom-prev");
     }
   }, []);
-    
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
+  };
+
   function truncateText(text, maxLength) {
     if (!text) return "";
     if (text.length <= maxLength) {
-    return text;
+      return text;
     }
-    return text.substring(0, maxLength) + '...';
-    }
+    return text.substring(0, maxLength) + "...";
+  }
 
   return (
     <div className="w-full h-[45vh] my-4">
@@ -67,12 +78,17 @@ function MovieLatest({ latestData, slideBtn, setDetailShow,setSelectedMovie }) {
               className="w-full h-full flex justify-end items-end flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
             >
               <img
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                src={
+                  loadedImages[item.id]
+                    ? `https://image.tmdb.org/t/p/original${item.poster_path}`
+                    : defaultImg
+                }
                 alt={item.title}
                 className="w-full h-4/5 rounded-t-md"
+                onLoad={() => handleImageLoad(item.id)}
               />
               <p className="w-full h-1/5 p-1 flex justify-center items-center text-slate-300 sm:text-lg text-base">
-              {truncateText(item.title, 20)}
+                {truncateText(item.title, 20)}
               </p>
             </div>
           </SwiperSlide>

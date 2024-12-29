@@ -3,9 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
-
-const ThumbsHero = ({ swiperRef,trendingData }) => {
+import defaultImg from "../../../assets/default/default.jpg";
+const ThumbsHero = ({ swiperRef, trendingData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <section className="absolute sm:w-1/2 w-2/3 lg:h-1/2 h-1/3 bottom-0 z-50 right-0">
@@ -40,7 +41,7 @@ const ThumbsHero = ({ swiperRef,trendingData }) => {
         allowSlideNext={true}
         allowSlidePrev={true}
       >
-        {trendingData.slice(0,5).map((item, index) => (
+        {trendingData.slice(0, 5).map((item, index) => (
           <SwiperSlide key={index}>
             <motion.div
               initial={{ opacity: 0.5, height: "80%" }}
@@ -56,9 +57,14 @@ const ThumbsHero = ({ swiperRef,trendingData }) => {
               }`}
             >
               <img
-               src={`https://image.tmdb.org/t/p/original${item. poster_path}`}
+                src={
+                  imageLoaded
+                    ? `https://image.tmdb.org/t/p/original${item.poster_path}`
+                    : defaultImg
+                }
                 alt={item.title}
                 className="w-full h-full object-cover object-center rounded-md"
+                onLoad={() => setImageLoaded(true)}
               />
             </motion.div>
           </SwiperSlide>

@@ -9,6 +9,8 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import { FaRegFaceGrinHearts } from "react-icons/fa6";
 import genres from "../../../genres";
 
+import defaultImg from "../../../assets/default/default.jpg";
+
 const MainHero = ({ swiperRef, trendingData }) => {
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
@@ -28,15 +30,37 @@ const MainHero = ({ swiperRef, trendingData }) => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     setAnimationKey((prevKey) => prevKey + 1);
   }, [currentSlide]);
 
-  const getPopularityPercentage = (popularity) => {
-    const maxPopularity = 1000;
-    return Math.min(Math.round((popularity / maxPopularity) * 100), 100);
-  };
+  useEffect(() => {
+    const updateImageUrl = (item) => {
+      const width = window.innerWidth;
+      const size = width < 640 ? "w500" : "original";
+      const imagePath = item ? item.backdrop_path : defaultImg;
+      setImageUrl(`https://image.tmdb.org/t/p/${size}${imagePath}`);
+    };
+
+    if (trendingData && trendingData[currentSlide]) {
+      updateImageUrl(trendingData[currentSlide]);
+    }
+
+    const handleResize = () => {
+      if (trendingData && trendingData[currentSlide]) {
+        updateImageUrl(trendingData[currentSlide]);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [imageLoaded, trendingData, currentSlide]);
 
   return (
     <Swiper
@@ -65,11 +89,12 @@ const MainHero = ({ swiperRef, trendingData }) => {
       {trendingData &&
         trendingData.slice(0, 5).map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="w-full h-full relative">
+            <div className="w-full h-full relative object-cover">
               <img
-                src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+                src={imageLoaded ? imageUrl : defaultImg}
                 alt={item.title}
-                className="w-full h-full opacity-70"
+                className="w-full h-full opacity-70 object-cover"
+                onLoad={() => setImageLoaded(true)}
               />
               <div className="absolute top-0 left-0 w-full h-full sm:bg-gradient-to-r bg-gradient-to-br to-transparent from-black/85">
                 <motion.div
@@ -92,13 +117,10 @@ const MainHero = ({ swiperRef, trendingData }) => {
                     <FaImdb /> {item.vote_average.toFixed(1)}
                   </p>
                   <p className="sm:text-lg text-base text-cyan-400 flex items-center gap-1">
-                    <FaRegFaceGrinHearts />{" "}
-                    {item.popularity}
+                    <FaRegFaceGrinHearts /> {item.popularity}
                   </p>
                   <Link
-                    to={`/movie/${item.id}/${
-                      item.title || item.name
-                    }`}
+                    to={`/movie/${item.id}/${item.title || item.name}`}
                     target="_blank"
                     className="w-28 my-2 outline-none no-underline border-none bg-indigo-600 rounded-md py-1 px-10 text-white sm:text-lg text-base cursor-pointer transition duration-75 hover:scale-95"
                   >

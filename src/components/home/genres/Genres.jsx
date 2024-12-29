@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import genres from "../../../genres";
 import genreImages from "../../../genreImages";
+import defaultImg from "../../../assets/default/default.jpg";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,8 +11,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 
-
 function Genres() {
+  const [loadedImages, setLoadedImages] = useState({});
+
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
+  };
+
   return (
     <section className="w-full sm:h-[50vh] h-[40vh] p-4">
       <Swiper
@@ -40,14 +46,15 @@ function Genres() {
           <SwiperSlide key={id}>
             <Link
               to="/"
-              className="relative w-full h-full flex justify-center items-center cursor-pointer rounded-lg transition-all duration-200 ease-out  genre"
+              className="relative w-full h-full flex justify-center items-center cursor-pointer rounded-lg overflow-hidden genre"
             >
               <img
-                src={genreImages[id]}
+                src={loadedImages[id] ? genreImages[id] : defaultImg}
                 alt={genres[id]}
-                className="w-full h-full rounded-lg opacity-80"
+                className="w-full h-full rounded-lg opacity-80 transition-all duration-1000 ease"
+                onLoad={() => handleImageLoad(id)}
               />
-              <p className="absolute lg:text-4xl sm:text-2xl text-xl  rounded-lg uppercase text-white w-full h-full flex justify-center items-center bg-black/30">
+              <p className="absolute lg:text-4xl sm:text-2xl text-xl rounded-lg uppercase text-white w-full h-full flex justify-center items-center bg-black/30 transition-all duration-500 ease">
                 {genres[id]}
               </p>
             </Link>
