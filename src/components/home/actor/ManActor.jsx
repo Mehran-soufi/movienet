@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 
-import defaultImg from '../../../assets/default/default.jpg'
+import defaultImg from "../../../assets/default/default.jpg";
 
 function ManActor({ actorData, slideBtn }) {
   useEffect(() => {
@@ -24,11 +24,11 @@ function ManActor({ actorData, slideBtn }) {
     }
   }, []);
 
-    const [loadedImages, setLoadedImages] = useState({});
-  
-    const handleImageLoad = (id) => {
-      setLoadedImages((prev) => ({ ...prev, [id]: true }));
-    };
+  const [loadedImages, setLoadedImages] = useState({});
+
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
+  };
 
   return (
     <div className="w-full my-4">
@@ -60,7 +60,8 @@ function ManActor({ actorData, slideBtn }) {
         {actorData.map((item) => (
           <SwiperSlide key={item.id}>
             <Link
-              to="/"
+              to={`/artists/${item.id}/${item.name}`}
+              target="_blank"
               className="w-full h-full flex flex-col justify-center items-center cursor-pointer transition-all duration-75 ease-out hover:scale-95"
             >
               <div className="w-40 h-40 rounded-full relative">

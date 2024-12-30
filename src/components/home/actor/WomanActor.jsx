@@ -49,7 +49,8 @@ function WomanActor({ actorData, slideBtn }) {
         {actorData.map((item) => (
           <SwiperSlide key={item.id}>
             <Link
-              to="/"
+              to={`/artists/${item.id}/${item.name}`}
+              target="_blank"
               className="w-full h-full flex flex-col justify-center items-center cursor-pointer transition-all duration-75 ease-out hover:scale-95"
             >
               <div className="w-40 h-40 rounded-full relative">
