@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DetArtists from "./DetArtists";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loading from "../home/actor/Loading";
+import MovieArtist from "./MovieArtist";
 
 function Artists() {
   const { id } = useParams();
@@ -21,7 +23,6 @@ function Artists() {
       setArtistData(data);
       setArtistLoading(false);
       setArtistError(false);
-      console.log(data);
     } catch (err) {
       setArtistError(true);
       setArtistLoading(false);
@@ -32,10 +33,17 @@ function Artists() {
     getArtistData();
   }, [id]);
 
-  if (artistLoading) return <div>Loading...</div>;
-  if (artistError) return <div>Error loading data</div>;
-
-  return <>{artistData && <DetArtists artistData={artistData} />}</>;
+  return (
+    <>
+      {artistLoading || (artistError && <Loading />)}
+      {artistData && (
+        <>
+          <DetArtists artistData={artistData} />
+          <MovieArtist apiKey={apiKey} id={id} />
+        </>
+      )}
+    </>
+  );
 }
 
 export default Artists;

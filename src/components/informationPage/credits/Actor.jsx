@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import defaultImg from "../../../assets/default/default.jpg";
+import { Link } from "react-router-dom";
 
 function Actor({ creditsData }) {
   const [loadedImages, setLoadedImages] = useState({});
@@ -37,7 +38,11 @@ function Actor({ creditsData }) {
       >
         {creditsData.cast.slice(0, 10).map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="w-full h-full flex flex-col justify-center items-center cursor-pointer transition-all duration-75 ease-out credits">
+            <Link
+              to={`/artists/${item.id}/${item.name}`}
+              target="_blank"
+              className="w-full h-full flex flex-col justify-center items-center cursor-pointer transition-all duration-75 ease-out credits"
+            >
               <div className="w-40 h-40 rounded-full relative">
                 <img
                   src={
@@ -56,7 +61,7 @@ function Actor({ creditsData }) {
               <div className="py-1">
                 <p className="text-slate-200">{item.name}</p>
               </div>
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
