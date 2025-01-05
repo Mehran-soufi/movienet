@@ -23,7 +23,6 @@ function IndexActor({ apiKey }) {
       setActorData(data.results);
       setActorLoading(false);
       setActorError(false);
-      console.log(data);
       
     } catch (err) {
       setActorError(true);

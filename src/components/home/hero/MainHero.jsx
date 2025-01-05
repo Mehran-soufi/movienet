@@ -65,7 +65,7 @@ const MainHero = ({ swiperRef, trendingData }) => {
   return (
     <Swiper
       ref={swiperRef}
-      className="mySwiper w-full h-full"
+      className="mySwiper w-full h-full "
       loop={true}
       effect={"fade"}
       fadeEffect={{ crossFade: true }}
@@ -102,7 +102,7 @@ const MainHero = ({ swiperRef, trendingData }) => {
                   initial={{ opacity: 0, scale: 0.8, x: 100 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ duration: 0.7, ease: "easeInOut" }}
-                  className="w-full h-full pl-5 flex sm:justify-center justify-start sm:pt-0 pt-5 items-start flex-col gap-5"
+                  className="w-full h-full pl-5 flex sm:justify-center  justify-start sm:pt-0 pt-16 items-start flex-col gap-5"
                 >
                   <h2 className="font-bold lg:text-5xl sm:text-4xl text-2xl">
                     {item.title}
