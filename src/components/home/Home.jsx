@@ -6,7 +6,6 @@ import IndexLatest from "./latest/IndexLatest";
 import IndexPopular from "./popular/IndexPopular";
 import IndexTopRated from "./topRated/IndexTopRated";
 import Loading from "../loading/Loading";
-import IndexUpcoming from "./upcoming/IndexUpcoming";
 import IndexActor from "./actor/IndexActor";
 import Genres from "./genres/Genres";
 
@@ -62,7 +61,6 @@ function Home({ setIsLoading }) {
               <IndexLatest apiKey={apiKey} />
               <IndexPopular apiKey={apiKey} />
               <IndexTopRated apiKey={apiKey} />
-              {/* <IndexUpcoming apiKey={apiKey} /> */}
             </section>
           )}
         </>

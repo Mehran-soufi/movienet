@@ -8,7 +8,7 @@ function HeaderLogo() {
     <div>
       <p
         onClick={() => navigate("/")}
-        className="flex items-center gap-2 text-2xl cursor-pointer text-fuchsia-700"
+        className="flex items-center gap-2 lg:text-2xl sm:text-xl text-base cursor-pointer text-fuchsia-700"
       >
         <RiMovie2AiFill />
         <span className="uppercase bg-gradient-to-r from-purple-500 to-pink-600 inline-block text-transparent bg-clip-text">

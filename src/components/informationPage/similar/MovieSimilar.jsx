@@ -68,7 +68,7 @@ function MovieSimilar({
                 setSelectedMovie(item);
                 setDetailShow(true);
               }}
-              className="w-full h-full flex justify-end items-end flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
+              className=" bg-slate-950/30 rounded-md w-full h-full flex justify-end items-end flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
             >
               <img
                 src={

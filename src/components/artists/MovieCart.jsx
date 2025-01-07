@@ -47,7 +47,7 @@ function MovieCart({ moArtData }) {
           to={`/movie/${movie.id}/${movie.title || movie.name}`}
           target="_blank"
           key={movie.id}
-          className="lg:w-[14%] sm:w-[30%] sm:h-[40vh] h-[45vh] w-11/12 lg:mx-0 mx-auto my-4 rounded-md cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
+          className="lg:w-[14%] sm:w-[30%] sm:h-[40vh] h-[45vh] w-11/12 lg:mx-0 mx-auto my-4 rounded-md cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900  bg-slate-950/30"
         >
           <div className="w-full h-5/6">
             <img

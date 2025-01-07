@@ -13,7 +13,7 @@ function InformationIndex({ setIsLoading }) {
   const [informationLoading, setInformationLoading] = useState(false);
   const [informationError, setInformationError] = useState(false);
   const [movieId, setMovieId] = useState(null);
-  
+  const [showLoading, setShowLoading] = useState(true);
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const { type, id, title } = useParams();
@@ -37,9 +37,9 @@ function InformationIndex({ setIsLoading }) {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     getInformationData();
     const timer = setTimeout(() => {
+      setShowLoading(false);
       setIsLoading(false);
     }, 3000);
     return () => clearTimeout(timer);
@@ -47,10 +47,10 @@ function InformationIndex({ setIsLoading }) {
 
   return (
     <>
-      {informationLoading || informationError ? (
+      {informationLoading || informationError || showLoading ? (
         <Loading
-          informationLoading={informationLoading}
-          informationError={informationError}
+          isLoading={informationLoading || showLoading}
+          isError={informationError}
         />
       ) : (
         <>

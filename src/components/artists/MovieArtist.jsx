@@ -3,6 +3,7 @@ import axios from "axios";
 import MovieCart from "./MovieCart";
 import TvCart from "./TvCart";
 import TitleCart from "./TitleCart";
+import Loading from "../home/trading/Loading";
 
 function MovieArtist({ apiKey, id }) {
   const [active, setActive] = useState("movie");
@@ -31,15 +32,13 @@ function MovieArtist({ apiKey, id }) {
 
   return (
     <section className="w-full h-auto my-4">
-      <div className="w-4/5 mx-auto flex justify-start items-center flex-wrap my-4 gap-1">
+      <div className="w-11/12 mx-auto flex justify-start items-center flex-wrap my-4 gap-1">
         <TitleCart
           active={active}
           setActive={setActive}
           moArtData={moArtData}
         />
-        {moArtLoading && <p>Loading...</p>}
-        {moArtError && <p>Error loading data.</p>}
-
+        {moArtLoading || moArtError && <Loading/>}
         {moArtData && active === "movie" ? (
           <MovieCart
             moArtData={moArtData}

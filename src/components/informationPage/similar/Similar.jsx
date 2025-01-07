@@ -41,7 +41,7 @@ function Similar({ apiKey, movieId }) {
 
   return (
     <section className="w-full h-auto py-5 flex justify-center items-center flex-col relative">
-      <div className="md:w-4/5 w-11/12 mx-auto">
+      <div className="w-11/12 mx-auto">
         <TitleSimilar similarData={similarData} slideBtn={slideBtn} />
 
         {similarLoading || (similarError && <Loading />)}

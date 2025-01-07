@@ -18,7 +18,7 @@ const letterVariants = {
 
 function Loading({ trendingLoading, trendingError }) {
   return (
-    <div className="w-full h-screen z-[10000] bg-gradient-to-br from-[#0D1B2A] to-[#0B3D91] flex flex-col justify-center items-center">
+    <div className="w-full h-screen z-[1000000] bg-gradient-to-br from-[#0D1B2A] to-[#0B3D91] flex flex-col justify-center items-center">
       <div className="w-full flex justify-center items-center my-4">
         {letters.map((letter, index) => (
           <motion.p

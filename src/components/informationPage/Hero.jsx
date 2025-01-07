@@ -55,7 +55,7 @@ function Hero({ informationData }) {
   const year = (release_date || first_air_date || "").split("-")[0];
 
   return (
-    <div className="w-fill sm:h-[80vh] h-screen relative">
+    <div className="w-fill sm:h-[80vh] h-[120vh] relative">
       <div className="w-full sm:h-4/5 h-full hero-information">
         <img
           src={backdropLoaded ? backdropUrl : defaultImg}
@@ -66,7 +66,7 @@ function Hero({ informationData }) {
       </div>
       <div className="w-full sm:h-[80vh] h-full absolute top-0 left-0 flex sm:flex-row flex-col justify-center items-center">
         <div className="sm:w-1/3 w-full sm:h-full h-1/3 z-10">
-          <div className="w-full h-1/4 flex justify-center items-center gap-4">
+          <div className="w-full sm:h-1/4 h-auto flex justify-center items-end pb-4 gap-4 sm:relative absolute bottom-0">
             <button
               className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
               title="like"
@@ -92,7 +92,7 @@ function Hero({ informationData }) {
               <IoDocumentOutline />
             </button>
           </div>
-          <div className="w-full h-3/4">
+          <div className="w-full sm:h-3/4 h-full sm:my-0 my-[25%] ">
             <img
               src={posterLoaded ? posterUrl : defaultImg}
               alt={title || name}
@@ -103,8 +103,8 @@ function Hero({ informationData }) {
         </div>
         <div className="sm:w-2/3 w-full sm:h-full h-2/3">
           <div className="w-full sm:h-4/5 h-full flex sm:flex-row flex-col lg:py-8 sm:py-6 py-4">
-            <div className="sm:w-4/5 w-full sm:h-full h-3/4 flex flex-col sm:justify-start justify-center items-start gap-4">
-              <h1 className="text-5xl font-bold text-white sm:w-auto w-full flex justify-center items-center">
+            <div className="sm:w-4/5 w-full sm:h-full h-3/4 flex flex-col justify-end sm:justify-center items-start gap-4">
+              <h1 className="text-5xl font-bold text-white sm:w-auto w-full flex justify-center items-center px-1">
                 {title || name}
               </h1>
               <p className="flex justify-center items-center gap-2 text-purple-300 sm:pl-0 pl-4">

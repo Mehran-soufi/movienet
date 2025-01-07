@@ -9,7 +9,7 @@ function DetArtists({ artistData }) {
   };
 
   return (
-    <section className="w-full h-auto">
+    <section className="w-full h-auto my-16">
       <div className="lg:w-4/5 w-11/12 h-full py-4 mx-auto flex flex-col sm:flex-row justify-center items-center">
         <div className="sm:w-1/3 w-full h-full flex justify-center items-center">
           <div className="w-11/12 h-[50vh] rounded-md">

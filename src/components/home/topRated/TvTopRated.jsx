@@ -63,7 +63,7 @@ function TvTopRated({
                 setSelectedMovie(item);
                 setDetailShow(true);
               }}
-              className="w-full h-full flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900"
+              className="w-full h-full flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:shadow-fuchsia-900  bg-slate-950/30 rounded-md"
             >
               <img
                 src={

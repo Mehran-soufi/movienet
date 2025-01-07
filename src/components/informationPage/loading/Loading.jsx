@@ -2,24 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { IoReload } from "react-icons/io5";
 
-const letters = "Movienet".split("");
-
-const letterVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.2,
-      duration: 0.5,
-    },
-  }),
-};
-
-function Loading({ informationLoading, informationError }) {
+function Loading({ isLoading, isError }) {
   return (
     <div className="w-full h-screen z-[10000] bg-gradient-to-br from-[#0D1B2A] to-[#0B3D91] flex flex-col justify-center items-center">
-      {informationLoading && (
+      {isLoading && (
         <div className="w-full flex justify-center items-center gap-2 my-4">
           <motion.span
             initial={{ scale: 1, opacity: 0.7 }}
@@ -63,7 +49,7 @@ function Loading({ informationLoading, informationError }) {
           ></motion.span>
         </div>
       )}
-      {informationError && (
+      {isError && (
         <div className="w-full flex justify-center items-center my-4">
           <button
             onClick={() => window.location.reload()}
