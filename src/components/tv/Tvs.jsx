@@ -6,7 +6,7 @@ import PopularTv from "./PopularTv";
 import ActionTv from "./ActionTv";
 import AnimationTv from "./AnimationTv";
 import ComedyTv from "./ComedyTv";
-import CrimeTv from "./CrimeTv";
+import CrimeTv from './CrimeTv'
 import DocumentaryTv from "./DocumentaryTv";
 import DramaTv from "./DramaTv";
 import FamilyTv from "./FamilyTv";
