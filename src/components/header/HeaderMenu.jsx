@@ -17,7 +17,8 @@ function HeaderMenu({ setMenu }) {
         <li className="lg:w-auto w-11/12 mx-auto">
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
-            to="/movie"
+            to="/movies"
+            target="_blank"
             onClick={() => setMenu(false)}
           >
             movie
@@ -26,7 +27,8 @@ function HeaderMenu({ setMenu }) {
         <li className="lg:w-auto w-11/12 mx-auto">
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
-            to="/tv"
+            to="/tvs"
+            target="_blank"
             onClick={() => setMenu(false)}
           >
             tv
@@ -36,6 +38,7 @@ function HeaderMenu({ setMenu }) {
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
             to="/trailer"
+            target="_blank"
             onClick={() => setMenu(false)}
           >
             trailer
@@ -45,6 +48,7 @@ function HeaderMenu({ setMenu }) {
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
             to="/actors"
+            target="_blank"
             onClick={() => setMenu(false)}
           >
             actors

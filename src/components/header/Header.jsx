@@ -32,7 +32,7 @@ function Header() {
   }, []);
 
   useEffect(() => {
-    if (menu && window.innerWidth <= 768) {
+    if (menu && window.innerWidth <= 1023) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";

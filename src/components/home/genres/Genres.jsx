@@ -18,6 +18,11 @@ function Genres() {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
 
+  // شناسه‌هایی که نباید نمایش داده شوند
+  const excludedGenreIds = [
+    10759, 10762, 10763, 10764, 10765, 10766, 10767, 10768,
+  ];
+
   return (
     <section className="w-full sm:h-[50vh] h-[40vh] p-4">
       <Swiper
@@ -42,24 +47,26 @@ function Genres() {
         }}
         className="mySwiper home-slide w-full h-full"
       >
-        {Object.keys(genres).map((id) => (
-          <SwiperSlide key={id}>
-            <Link
-              to="/"
-              className="relative w-full h-full flex justify-center items-center cursor-pointer rounded-lg overflow-hidden genre"
-            >
-              <img
-                src={loadedImages[id] ? genreImages[id] : defaultImg}
-                alt={genres[id]}
-                className="w-full h-full rounded-lg opacity-80 transition-all duration-1000 ease"
-                onLoad={() => handleImageLoad(id)}
-              />
-              <p className="absolute lg:text-4xl sm:text-2xl text-xl rounded-lg uppercase text-white w-full h-full flex justify-center items-center bg-black/30 transition-all duration-500 ease">
-                {genres[id]}
-              </p>
-            </Link>
-          </SwiperSlide>
-        ))}
+        {Object.keys(genres)
+          .filter((id) => !excludedGenreIds.includes(Number(id))) // فقط آیدی‌هایی که در لیست نیستند نمایش داده شوند
+          .map((id) => (
+            <SwiperSlide key={id}>
+              <Link
+                to="/"
+                className="relative w-full h-full flex justify-center items-center cursor-pointer rounded-lg overflow-hidden genre"
+              >
+                <img
+                  src={loadedImages[id] ? genreImages[id] : defaultImg}
+                  alt={genres[id]}
+                  className="w-full h-full rounded-lg opacity-80 transition-all duration-1000 ease"
+                  onLoad={() => handleImageLoad(id)}
+                />
+                <p className="absolute lg:text-4xl sm:text-2xl text-xl rounded-lg uppercase text-white w-full h-full flex justify-center items-center bg-black/30 transition-all duration-500 ease">
+                  {genres[id]}
+                </p>
+              </Link>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </section>
   );

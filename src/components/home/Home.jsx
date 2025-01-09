@@ -22,7 +22,7 @@ function Home({ setIsLoading }) {
     setTrendingError(false);
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1`
+        `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&page=1`
       );
       setTrendingData(data.results);
       setTrendingLoading(false);
