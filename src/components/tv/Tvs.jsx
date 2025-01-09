@@ -15,7 +15,7 @@ import MysteryTv from "./MysteryTv";
 import RomanceTv from "./RomanceTv";
 import WarTv from "./WarTv";
 import WesternTv from "./WesternTv";
-import CrimeTv from "./CrimeTv";
+// import CrimeTv from "./CrimeTv";
 
 function Tvs({ setIsLoading }) {
   const [showLoading, setShowLoading] = useState(true);
@@ -40,7 +40,7 @@ function Tvs({ setIsLoading }) {
           <ActionTv apiKey={apiKey} />
           <AnimationTv apiKey={apiKey} />
           <ComedyTv apiKey={apiKey} />
-          <CrimeTv apiKey={apiKey} />
+          {/* <CrimeTv apiKey={apiKey} /> */}
           <DocumentaryTv apiKey={apiKey} />
           <DramaTv apiKey={apiKey} />
           <FamilyTv apiKey={apiKey} />
