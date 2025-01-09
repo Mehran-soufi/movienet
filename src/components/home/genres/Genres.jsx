@@ -18,7 +18,6 @@ function Genres() {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
 
-  // شناسه‌هایی که نباید نمایش داده شوند
   const excludedGenreIds = [
     10759, 10762, 10763, 10764, 10765, 10766, 10767, 10768,
   ];
@@ -48,11 +47,12 @@ function Genres() {
         className="mySwiper home-slide w-full h-full"
       >
         {Object.keys(genres)
-          .filter((id) => !excludedGenreIds.includes(Number(id))) // فقط آیدی‌هایی که در لیست نیستند نمایش داده شوند
+          .filter((id) => !excludedGenreIds.includes(Number(id)))
           .map((id) => (
             <SwiperSlide key={id}>
               <Link
-                to="/"
+                to={`/movies/genre/${id}`}
+                target="_blank"
                 className="relative w-full h-full flex justify-center items-center cursor-pointer rounded-lg overflow-hidden genre"
               >
                 <img

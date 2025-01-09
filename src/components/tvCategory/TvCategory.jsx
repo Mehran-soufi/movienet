@@ -14,10 +14,9 @@ function TvCategory({ movies, category, genreId }) {
   }
 
   const genreName = genres[genreId] || "Unknown Genre";
-  
 
   return (
-    <>
+    <section className="w-full pt-16">
       <div className="w-4/5 mx-auto my-8">
         <div className="w-full flex justify-start items-center gap-2 border-b border-slate-400 py-1">
           <h2 className="text-slate-300 sm:text-xl text-lg">
@@ -52,7 +51,7 @@ function TvCategory({ movies, category, genreId }) {
           </Link>
         ))}
       </div>
-    </>
+    </section>
   );
 }
 

@@ -24,6 +24,7 @@ function IndexMovie({ setIsLoading }) {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [showLoading, setShowLoading] = useState(true);
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -62,6 +63,11 @@ function IndexMovie({ setIsLoading }) {
 
   useEffect(() => {
     fetchMovies(page);
+    const timer = setTimeout(() => {
+      setShowLoading(false);
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, [category, genreId, page, setIsLoading]);
 
   const handlePageChange = (event, value) => {
@@ -69,10 +75,10 @@ function IndexMovie({ setIsLoading }) {
   };
 
   return (
-    <section className="w-full pt-16">
-      {loading && <Loading isLoading={loading} isError={error} />}
-      {error && <Loading isLoading={loading} isError={error} />}
-      {movies && (
+    <>
+      {loading || error || showLoading ? (
+        <Loading isLoading={loading || showLoading} isError={loading} />
+      ) : (
         <>
           <MovieCategory
             movies={movies}
@@ -92,7 +98,7 @@ function IndexMovie({ setIsLoading }) {
           </Stack>
         </>
       )}
-    </section>
+    </>
   );
 }
 
