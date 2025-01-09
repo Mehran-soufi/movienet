@@ -95,7 +95,7 @@ function CrimeTv({ apiKey }) {
         </div>
       </div>
       {loading && <LoadingMovie />}
-      {error && <LoadingMovie />}{" "}
+      {error && <LoadingMovie />}
       {data && (
         <Swiper
           slidesPerView={1.1}
