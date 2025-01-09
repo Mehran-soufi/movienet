@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import TvCategory from "./TvCategory";
+import TvCategory from './TvCategory'
 import Loading from "../informationPage/loading/Loading";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
