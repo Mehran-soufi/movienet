@@ -10,6 +10,7 @@ import Tvs from "./components/tv/Tvs";
 import Movies from "./components/movie/Movies";
 import IndexMovie from "./components/movieCategory/IndexMovie";
 import IndexTv from "./components/tvCategory/IndexTv";
+import Actors from "./components/actors/Actors";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +45,10 @@ function App() {
           path="/movies/:category"
           element={<IndexMovie setIsLoading={setIsLoading} />}
         />{" "}
+        <Route
+          path="/actors"
+          element={<Actors setIsLoading={setIsLoading} />}
+        />
         <Route
           path="/movies/genre/:genreId"
           element={<IndexMovie setIsLoading={setIsLoading} />}
