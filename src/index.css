@@ -112,3 +112,24 @@ body {
     left: 50%;
   }
 }
+
+/* not found */
+.not-found {
+  background-image: url("./assets/not found/notFound.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* auth */
+.auth {
+  background-image: url("./assets/auth/auth.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+@media (max-width: 768px) {
+  .auth {
+    background-image: url("./assets/auth/auth-mobile.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+}

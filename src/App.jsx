@@ -11,6 +11,8 @@ import Movies from "./components/movie/Movies";
 import IndexMovie from "./components/movieCategory/IndexMovie";
 import IndexTv from "./components/tvCategory/IndexTv";
 import Actors from "./components/actors/Actors";
+import NotFound from "./components/notFound/NotFound";
+import Auth from "./components/auth/Auth";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,6 +63,8 @@ function App() {
           path="/tv/genre/:genreId"
           element={<IndexTv setIsLoading={setIsLoading} />}
         />{" "}
+        <Route path="*" element={<NotFound />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
       {!isLoading && <Footer />}
     </>

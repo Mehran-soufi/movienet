@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function HeaderMenu({ setMenu }) {
   return (
     <div className="lg:w-1/2 w-full my-4 lg:my-0">
-      <ul className="flex justify-center items-center lg:flex-row flex-col w-full gap-4">
+      <ul className="flex justify-center items-center lg:flex-row flex-col w-full">
         <li className="lg:w-auto w-11/12 mx-auto">
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
@@ -18,7 +18,6 @@ function HeaderMenu({ setMenu }) {
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
             to="/movies"
-            target="_blank"
             onClick={() => setMenu(false)}
           >
             movie
@@ -28,7 +27,6 @@ function HeaderMenu({ setMenu }) {
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
             to="/tvs"
-            target="_blank"
             onClick={() => setMenu(false)}
           >
             tv
@@ -37,18 +35,7 @@ function HeaderMenu({ setMenu }) {
         <li className="lg:w-auto w-11/12 mx-auto">
           <Link
             className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
-            to="/trailer"
-            target="_blank"
-            onClick={() => setMenu(false)}
-          >
-            trailer
-          </Link>
-        </li>
-        <li className="lg:w-auto w-11/12 mx-auto">
-          <Link
-            className="lg:w-auto w-full flex justify-center items-center lg:shadow-none shadow-sm shadow-pink-500 no-underline p-1 text-lg uppercase border-b border-transparent transition-all duration-200 hover:text-pink-500 hover:border-b-pink-500"
             to="/actors"
-            target="_blank"
             onClick={() => setMenu(false)}
           >
             actors
