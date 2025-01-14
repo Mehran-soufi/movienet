@@ -56,7 +56,7 @@ function InformationIndex({ setIsLoading }) {
         <>
           {informationData && (
             <>
-              <Hero informationData={informationData} />
+              <Hero informationData={informationData} type={type} />
               <Additional
                 informationData={informationData}
                 apiKey={apiKey}
