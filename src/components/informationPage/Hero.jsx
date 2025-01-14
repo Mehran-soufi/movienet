@@ -11,6 +11,8 @@ function Hero({ informationData }) {
   const [posterLoaded, setPosterLoaded] = useState(false);
   const [backdropUrl, setBackdropUrl] = useState(defaultImg);
   const [posterUrl, setPosterUrl] = useState(defaultImg);
+  const [copied, setCopied] = useState(false);
+
 
   useEffect(() => {
     const updateImageUrls = () => {
@@ -34,9 +36,33 @@ function Hero({ informationData }) {
     };
   }, [informationData]);
 
-  if (!informationData) {
-    return <div>Loading...</div>;
-  }
+  const pageUrl = window.location.href;
+
+
+    // کپی لینک به کلیپبورد
+    const handleCopy = () => {
+      navigator.clipboard
+        .writeText(pageUrl)
+        .then(() => setCopied(true))
+        .catch(() => alert("Failed to copy link!"));
+  
+      setTimeout(() => setCopied(false), 2000); // ریست پیام "Copied"
+    };
+  
+    // اشتراکگذاری برای موبایل
+    const handleShareMobile = () => {
+      if (navigator.share) {
+        navigator
+          .share({
+            title: informationData?.title || informationData?.name || "Movie",
+            text: `Check out this amazing content!`,
+            url: pageUrl,
+          })
+          .then(() => console.log("Shared successfully"))
+          .catch((error) => console.error("Error sharing:", error));
+      }
+    };
+  
 
   const {
     title,
@@ -53,6 +79,21 @@ function Hero({ informationData }) {
 
   const genreNames = genres.map((genre) => genre.name).join(" - ");
   const year = (release_date || first_air_date || "").split("-")[0];
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: title || name,
+          text: `Check out this ${title || name}!`,
+          url: window.location.href,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Error sharing:", error));
+    } else {
+      alert("Sharing is not supported in your browser.");
+    }
+  };
 
   return (
     <div className="w-fill sm:h-[80vh] h-[120vh] relative">
@@ -82,6 +123,8 @@ function Hero({ informationData }) {
             <button
               className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
               title="share"
+              onClick={handleShareMobile}
+
             >
               <FiShare2 />
             </button>
