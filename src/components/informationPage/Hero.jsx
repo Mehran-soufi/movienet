@@ -12,10 +12,11 @@ function Hero({ informationData, type }) {
   const [backdropUrl, setBackdropUrl] = useState(defaultImg);
   const [posterUrl, setPosterUrl] = useState(defaultImg);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const pageUrl = window.location.href;
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [userReaction, setUserReaction] = useState(null);
 
-  const [copied, setCopied] = useState(false);
-  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
+  const pageUrl = window.location.href;
 
   useEffect(() => {
     const updateImageUrls = () => {
@@ -39,7 +40,6 @@ function Hero({ informationData, type }) {
     };
   }, [informationData]);
 
-  // بررسی سایز صفحه
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -50,17 +50,14 @@ function Hero({ informationData, type }) {
 
   const handleShare = () => {
     if (navigator.share) {
-      navigator
-        .share({
-          title:
-            informationData?.title ||
-            informationData?.name ||
-            "Check this out!",
-          text: `Enjoy watching this ${type}! ${
-            informationData?.title || informationData?.name
-          } \n`,
-          url: pageUrl,
-        })
+      navigator.share({
+        title:
+          informationData?.title || informationData?.name || "Check this out!",
+        text: `Enjoy watching this ${type}! ${
+          informationData?.title || informationData?.name
+        } \n`,
+        url: pageUrl,
+      });
     } else {
       toast.error("Sharing is not supported on this device!", {
         position: "top-center",
@@ -77,14 +74,14 @@ function Hero({ informationData, type }) {
         toast.success("Link copied to clipboard!", {
           position: "top-center",
           autoClose: 2000,
-          hideProgressBar: true,
+          hideProgressBar: false,
         });
       })
       .catch(() => {
         toast.error("Failed to copy the link!", {
           position: "top-center",
           autoClose: 2000,
-          hideProgressBar: true,
+          hideProgressBar: false,
         });
       });
   };
@@ -105,6 +102,54 @@ function Hero({ informationData, type }) {
   const genreNames = genres.map((genre) => genre.name).join(" - ");
   const year = (release_date || first_air_date || "").split("-")[0];
 
+  useEffect(() => {
+    if (informationData) {
+      const calculatedLikes = Math.floor(
+        ((informationData.vote_average || 5) * 100) / 2
+      );
+      const calculatedDislikes = Math.floor(
+        (informationData.popularity || 100) / 80
+      );
+
+      setLikes(calculatedLikes);
+      setDislikes(calculatedDislikes);
+    }
+  }, [informationData]);
+
+  const handleLike = () => {
+    if (userReaction === "like") {
+      return; 
+    }
+
+    setLikes(likes + 1);
+    if (userReaction === "dislike") {
+      setDislikes(dislikes - 1); 
+    }
+    setUserReaction("like"); 
+    toast.success(`You liked this ${type}`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+    });
+  };
+
+  const handleDislike = () => {
+    if (userReaction === "dislike") {
+      return; 
+    }
+
+    setDislikes(dislikes + 1);
+    if (userReaction === "like") {
+      setLikes(likes - 1); 
+    }
+    setUserReaction("dislike"); 
+    toast.error(`You disliked this ${type}`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+    });
+  };
+
   return (
     <div className="w-fill sm:h-[80vh] h-[120vh] relative">
       <div className="w-full sm:h-4/5 h-full hero-information">
@@ -119,34 +164,42 @@ function Hero({ informationData, type }) {
         <div className="sm:w-1/3 w-full sm:h-full h-1/3 z-10">
           <div className="w-full sm:h-1/4 h-auto flex justify-center items-end pb-4 gap-4 sm:relative absolute bottom-0">
             <button
-              className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+              className={`outline-none border-none transition duration-75 hover:scale-90 text-xl ${
+                userReaction === "like" ? "text-green-500" : "text-white"
+              }`}
               title="like"
+              onClick={handleLike}
+              disabled={userReaction === "like"}
             >
               <AiOutlineLike />
             </button>
             <button
-              className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+              className={`outline-none border-none transition duration-75 hover:scale-90 text-xl ${
+                userReaction === "dislike" ? "text-red-500" : "text-white"
+              }`}
               title="dislike"
+              onClick={handleDislike}
+              disabled={userReaction === "dislike"}
             >
               <AiOutlineDislike />
             </button>
             {isMobile ? (
-        <button
-          onClick={handleShare}
-          className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
-          title="Share"
-        >
-          <FiShare2 />
-        </button>
-      ) : (
-        <button
-          onClick={handleCopy}
-          className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
-          title="Copy"
-        >
-          <IoCopyOutline />
-        </button>
-      )}
+              <button
+                onClick={handleShare}
+                className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+                title="Share"
+              >
+                <FiShare2 />
+              </button>
+            ) : (
+              <button
+                onClick={handleCopy}
+                className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+                title="Copy"
+              >
+                <IoCopyOutline />
+              </button>
+            )}
             <button
               className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
               title="save"
@@ -202,11 +255,11 @@ function Hero({ informationData, type }) {
               </p>
               <p className="flex justify-center items-center gap-2 text-2xl text-green-600">
                 <AiOutlineLike />
-                <span className="text-slate-300 text-xl">63</span>
+                <span className="text-slate-300 text-xl">{likes}</span>
               </p>
               <p className="flex justify-center items-center gap-2 text-2xl text-rose-600">
                 <AiOutlineDislike />
-                <span className="text-slate-300 text-xl">63</span>
+                <span className="text-slate-300 text-xl">{dislikes}</span>
               </p>
             </div>
           </div>

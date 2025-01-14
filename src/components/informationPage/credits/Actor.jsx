@@ -16,7 +16,7 @@ function Actor({ creditsData }) {
   return (
     <section className="w-full">
       <Swiper
-        slidesPerView={1.2}
+        slidesPerView={1}
         spaceBetween={5}
         navigation={{}}
         breakpoints={{
