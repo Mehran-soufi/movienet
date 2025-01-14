@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaImdb, FaRegGrinHearts } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { IoDocumentOutline } from "react-icons/io5";
-
+import { IoCopyOutline, IoDocumentOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 import defaultImg from "../../assets/default/default.jpg";
 
 function Hero({ informationData, type }) {
@@ -11,7 +11,11 @@ function Hero({ informationData, type }) {
   const [posterLoaded, setPosterLoaded] = useState(false);
   const [backdropUrl, setBackdropUrl] = useState(defaultImg);
   const [posterUrl, setPosterUrl] = useState(defaultImg);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const pageUrl = window.location.href;
+
   const [copied, setCopied] = useState(false);
+  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
 
   useEffect(() => {
     const updateImageUrls = () => {
@@ -35,29 +39,54 @@ function Hero({ informationData, type }) {
     };
   }, [informationData]);
 
-  const pageUrl = window.location.href;
-  // کپی لینک به کلیپبورد
-  const handleCopy = () => {
-    navigator.clipboard
-      .writeText(pageUrl)
-      .then(() => setCopied(true))
-      .catch(() => alert("Failed to copy link!"));
+  // بررسی سایز صفحه
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    setTimeout(() => setCopied(false), 2000); // ریست پیام "Copied"
-  };
-
-  // اشتراکگذاری برای موبایل
-  const handleShareMobile = () => {
+  const handleShare = () => {
     if (navigator.share) {
       navigator
         .share({
-          title: title || name || "Movie",
-          text: `Enjoy watching this ${type}! : \n`,
+          title:
+            informationData?.title ||
+            informationData?.name ||
+            "Check this out!",
+          text: `Enjoy watching this ${type}! ${
+            informationData?.title || informationData?.name
+          } \n`,
           url: pageUrl,
         })
-        .then(() => console.log("Shared successfully"))
-        .catch((error) => console.error("Error sharing:", error));
+    } else {
+      toast.error("Sharing is not supported on this device!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+      });
     }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(pageUrl)
+      .then(() => {
+        toast.success("Link copied to clipboard!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+        });
+      })
+      .catch(() => {
+        toast.error("Failed to copy the link!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+        });
+      });
   };
 
   const {
@@ -101,13 +130,23 @@ function Hero({ informationData, type }) {
             >
               <AiOutlineDislike />
             </button>
-            <button
-              className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
-              title="share"
-              onClick={handleShareMobile}
-            >
-              <FiShare2 />
-            </button>
+            {isMobile ? (
+        <button
+          onClick={handleShare}
+          className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+          title="Share"
+        >
+          <FiShare2 />
+        </button>
+      ) : (
+        <button
+          onClick={handleCopy}
+          className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
+          title="Copy"
+        >
+          <IoCopyOutline />
+        </button>
+      )}
             <button
               className="outline-none border-none transition duration-75 hover:scale-90 text-xl"
               title="save"
