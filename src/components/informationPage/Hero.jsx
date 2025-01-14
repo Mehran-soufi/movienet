@@ -92,7 +92,7 @@ function Hero({ informationData, type }) {
     release_date,
     first_air_date,
     genres,
-    original_language,
+    origin_country,
     runtime,
     revenue,
     vote_average,
@@ -231,7 +231,7 @@ function Hero({ informationData, type }) {
               </p>
               <p className="flex justify-center items-center gap-2 text-purple-300 sm:pl-0 pl-4">
                 Manufacturer country :
-                <span className="text-slate-300">{original_language}</span>
+                <span className="text-slate-300">{origin_country}</span>
               </p>
               <p className="flex justify-center items-center gap-2 text-purple-300 sm:pl-0 pl-4">
                 time :<span className="text-slate-300">{runtime} min</span>

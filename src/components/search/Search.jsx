@@ -47,6 +47,10 @@ function Search({ setIsLoading }) {
     setIsLoading(false);
   }, [setIsLoading]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <section className="w-full h-screen">
       <SearchCom

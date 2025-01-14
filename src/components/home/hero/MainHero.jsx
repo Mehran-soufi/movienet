@@ -117,7 +117,7 @@ const MainHero = ({ swiperRef, trendingData }) => {
                     <FaImdb /> {item.vote_average.toFixed(1)}
                   </p>
                   <p className="sm:text-lg text-base text-cyan-400 flex items-center gap-1">
-                    <FaRegFaceGrinHearts /> {item.popularity}
+                    <FaRegFaceGrinHearts /> {Math.round(item.popularity)}
                   </p>
                   <Link
                     to={`/movie/${item.id}/${item.title || item.name}`}
